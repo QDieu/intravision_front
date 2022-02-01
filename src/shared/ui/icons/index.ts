@@ -4,6 +4,7 @@ import {Document} from './document';
 import {Option} from './options';
 import {People} from './people';
 import {Presentation} from './presentation';
+import { Loop } from './loop';
 
 export const Icons = {
     Book,
@@ -11,5 +12,6 @@ export const Icons = {
     Document,
     Option,
     People,
-    Presentation
+    Presentation,
+    Loop,
 }
