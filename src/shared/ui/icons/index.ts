@@ -5,6 +5,7 @@ import {Option} from './options';
 import {People} from './people';
 import {Presentation} from './presentation';
 import { Loop } from './loop';
+import {Close} from './close'
 
 export const Icons = {
     Book,
@@ -14,4 +15,5 @@ export const Icons = {
     People,
     Presentation,
     Loop,
+    Close
 }
