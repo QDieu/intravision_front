@@ -1,1 +1,1 @@
-export {HeaderSearchInput} from './header-search-input'
+export { HeaderSearchInput } from './header-search-input';
