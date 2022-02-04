@@ -1,5 +1,13 @@
-import React from "react";
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AppNavigation } from '../pages/ui/app-navigation';
 
 export const App = () => {
-  return <div className="App">Hello world!</div>;
+    return (
+        <React.StrictMode>
+            <Router>
+                <AppNavigation />
+            </Router>
+        </React.StrictMode>
+    );
 };
