@@ -4,6 +4,8 @@ import { Icons } from '../../../icons';
 import { SidebarTab } from '../../atoms';
 
 const Wrapper = styled.div`
+    box-sizing: border-box;
+
     height: 100vh;
     background-color: #002137;
     width: 95px;
@@ -13,6 +15,10 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    float: left;
+
+    position: fixed;
 `;
 
 type TProps = {

@@ -37,7 +37,7 @@ const mockTask = {
 
 type TTask = typeof mockTask;
 
-export interface ITask extends TTask {
+export interface ITask extends Partial<TTask> {
     lifetimeItems?: Array<typeof lifetimeItems>;
     tags?: Array<{ id: number; name: string }>;
     comment?: string;

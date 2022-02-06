@@ -2,10 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { TPriority } from '../../../../types/Priority';
 import { TStatus } from '../../../../types/Status';
+import { ITask } from '../../../../types/Task';
 import { PriorityLine, StatusButton } from '../../atoms';
 
 const Wrapper = styled.tr`
     border-bottom: 1px solid #eef1f4;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+    &:hover {
+        background-color: rgba(0, 191, 255, 0.1);
+    }
 `;
 
 const TextWrapper = styled.p`
@@ -19,29 +27,32 @@ const TextWrapper = styled.p`
 
 type TProps = {
     priority?: TPriority;
-    id: number;
-    name: string;
-    executor: string;
+    task: ITask;
     status?: TStatus;
+    onEditTask: (task: ITask) => void;
 };
 
-export const TaskTableRow: React.FC<TProps> = ({ priority, id, name, status, executor }) => {
+export const TaskTableRow: React.FC<TProps> = ({ priority, status, task, onEditTask }) => {
+    const onClickHandler = () => {
+        onEditTask(task);
+    };
+
     return (
-        <Wrapper>
+        <Wrapper onClick={onClickHandler}>
             <td>
                 <PriorityLine priority={priority} />
             </td>
             <td>
-                <TextWrapper>{id}</TextWrapper>
+                <TextWrapper>{task.id}</TextWrapper>
             </td>
             <td>
-                <TextWrapper>{name}</TextWrapper>
+                <TextWrapper>{task.name}</TextWrapper>
             </td>
             <td>
                 <StatusButton status={status} />
             </td>
             <td>
-                <TextWrapper>{executor}</TextWrapper>
+                <TextWrapper>{task.executorName}</TextWrapper>
             </td>
         </Wrapper>
     );

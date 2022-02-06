@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-    display: flex;
-    flex-direction: row;
+    position: absolute;
+    padding-left: 95px;
 `;
 
 const Content = styled.div`
@@ -12,15 +12,13 @@ const Content = styled.div`
 `;
 
 type TProps = {
-    sidebar: React.ReactNode;
     header: React.ReactNode;
     content: React.ReactNode;
 };
 
-export const MainTemplate: React.FC<TProps> = ({ sidebar, header, content }) => {
+export const MainTemplate: React.FC<TProps> = ({ header, content }) => {
     return (
         <Wrapper>
-            {sidebar}
             <Content>
                 {header}
                 {content}

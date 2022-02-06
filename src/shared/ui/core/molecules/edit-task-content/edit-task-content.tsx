@@ -4,8 +4,6 @@ import { ITask } from '../../../../types/Task';
 import { EditTaskBarInfo, EditTaskComment } from '../../atoms';
 
 const Wrapper = styled.div`
-    background-color: #ecf3f7;
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -49,7 +47,7 @@ export const EditTaskContent: React.FC<TProps> = ({ task }) => {
     const htmlRef = React.useRef<HTMLDivElement>(null);
 
     React.useLayoutEffect(() => {
-        if (htmlRef.current) htmlRef.current.innerHTML = task.description;
+        if (htmlRef.current && task.description) htmlRef.current.innerHTML = task.description;
     });
 
     return (

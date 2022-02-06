@@ -40,19 +40,26 @@ const HeaderTitle = styled.div`
     max-width: 550px;
 `;
 
+const IconWrapper = styled.div`
+    cursor: pointer;
+`;
+
 type TProps = {
-    id: number;
-    taskName: string;
+    id?: number;
+    taskName?: string;
+    onCloseEditForm: () => void;
 };
 
-export const EditTaskHeader: React.FC<TProps> = ({ id, taskName }) => {
+export const EditTaskHeader: React.FC<TProps> = ({ id, taskName, onCloseEditForm }) => {
     return (
         <Wrapper>
             <Header>
-                <HeaderId>{id}</HeaderId>
-                <HeaderTitle>{taskName}</HeaderTitle>
+                {id && <HeaderId>{id}</HeaderId>}
+                {taskName && <HeaderTitle>{taskName}</HeaderTitle>}
             </Header>
-            <Icons.Close />
+            <IconWrapper onClick={onCloseEditForm}>
+                <Icons.Close />
+            </IconWrapper>
         </Wrapper>
     );
 };

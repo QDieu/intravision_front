@@ -54,28 +54,34 @@ type TProps = {
     tasks: Array<ITask>;
     status: Array<TStatus>;
     priority: Array<TPriority>;
+    onTaskCreateForm: () => void;
+    onEditTask: (task: ITask) => void;
 };
 
-export const TaskTable: React.FC<TProps> = ({ tasks, status, priority }) => {
+export const TaskTable: React.FC<TProps> = ({
+    tasks,
+    status,
+    priority,
+    onTaskCreateForm,
+    onEditTask,
+}) => {
     return (
         <Wrapper>
             <ButtonWrapper>
-                <Button onClickButton={() => {}} text={'Создать заявку'} />
+                <Button onClickButton={onTaskCreateForm} text={'Создать заявку'} />
             </ButtonWrapper>
-
             <Table>
                 <TaskTableHead />
                 {tasks.map((item) => (
                     <TaskTableRow
-                        executor={item.executorName}
-                        id={item.id}
-                        name={item.name}
+                        task={item}
                         status={status.find((statusItem) => {
                             return statusItem.name === item.statusName;
                         })}
                         priority={priority.find((priorityItem) => {
                             return priorityItem.name === item.priorityName;
                         })}
+                        onEditTask={onEditTask}
                     />
                 ))}
             </Table>

@@ -5,6 +5,12 @@ import { Icons } from '../../../icons';
 
 const Wrapper = styled.div`
     background-color: #ecf3f7;
+    width: 60%;
+    height: 100vh;
+
+    position: fixed;
+    right: 0;
+    top: 65px;
 `;
 
 const Header = styled.div`
@@ -34,13 +40,11 @@ const IconWrapper = styled.div`
 `;
 
 const Form = styled.form`
-    padding: 50px 42px;
+    padding: 50px 42px 0 42px;
 
     display: flex;
     flex-direction: column;
-
-    height: 100vh;
-    width: 40%;
+    width: 60%;
 `;
 
 const InputFormWrapper = styled.div`
@@ -89,22 +93,25 @@ const Input = styled.input`
     }
 `;
 
-type TProps = {};
+type TProps = {
+    onCloseTaskForm: () => void;
+    onCreate: (name: string, comment: string) => void;
+};
 
 type TFormData = {
     [key: string]: string;
 };
 
-export const CreateTaskForm: React.FC<TProps> = ({}) => {
+export const CreateTaskForm: React.FC<TProps> = ({ onCloseTaskForm, onCreate }) => {
     const { register, handleSubmit } = useForm<TFormData>();
 
-    const onSubmit = handleSubmit((data) => console.log(data));
+    const onSubmit = handleSubmit((data) => onCreate(data.name, data.description));
 
     return (
         <Wrapper>
             <Header>
                 <Title>Новая заявка</Title>
-                <IconWrapper>
+                <IconWrapper onClick={onCloseTaskForm}>
                     <Icons.Close />
                 </IconWrapper>
             </Header>
@@ -112,7 +119,7 @@ export const CreateTaskForm: React.FC<TProps> = ({}) => {
             <Form onSubmit={onSubmit}>
                 <InputFormWrapper>
                     <Label>Название</Label>
-                    <InputForm {...register('newTask')} rows={5} />
+                    <InputForm {...register('name')} rows={5} />
                 </InputFormWrapper>
                 <InputFormWrapper>
                     <Label>Описание</Label>

@@ -1,7 +1,16 @@
-import { createStore, combineReducers, applyMiddleware, Action } from 'redux';
+import { createStore, combineReducers, applyMiddleware, Action, compose } from 'redux';
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
+import { appReducer } from './app-reducer';
+import { prioritesReducer } from './priorities-reducer';
+import { statusesReducer } from './status-reducer';
+import { taskReducer } from './task-reducer';
 
-const RootReducer = combineReducers({});
+const RootReducer = combineReducers({
+    task: taskReducer,
+    app: appReducer,
+    priorities: prioritesReducer,
+    statuses: statusesReducer,
+});
 
 type TRootReducer = typeof RootReducer;
 export type TAppState = ReturnType<TRootReducer>;
@@ -19,6 +28,9 @@ export type ThunkTypeCreator<A extends Action, R = Promise<void>> = ThunkAction<
     A
 >;
 
-const store = createStore(RootReducer, applyMiddleware(thunkMiddleware));
+//@ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(RootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
 export default store;

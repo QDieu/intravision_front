@@ -4,7 +4,7 @@ import { getDate } from '../../../../lib';
 
 const Wrapper = styled.div`
     width: 10%;
-    height: 100vh;
+    height: 100%;
 
     border-left: 1px solid #d7dce0;
 
@@ -20,12 +20,12 @@ const Status = styled.div`
     align-items: center;
 `;
 
-const StatusColor = styled.div<{ statusColor: string }>`
+const StatusColor = styled.div<{ statusColor: string | undefined }>`
     width: 12px;
     height: 12px;
     border-radius: 12px;
 
-    background-color: ${({ statusColor }) => statusColor};
+    background-color: ${({ statusColor }) => (statusColor ? statusColor : '#fff')};
 
     margin-right: 11px;
 `;
@@ -82,13 +82,13 @@ const Tag = styled.div`
 `;
 
 type TProps = {
-    statusName: string;
-    initiatorName: string;
-    executorName: string;
-    priorityName: string;
-    resolutionDatePlan: string;
+    statusName?: string;
+    initiatorName?: string;
+    executorName?: string;
+    priorityName?: string;
+    resolutionDatePlan?: string;
     tags?: Array<{ id: number; name: string }>;
-    statusColor: string;
+    statusColor?: string;
 };
 
 export const EditTaskBarInfo: React.FC<TProps> = ({
@@ -129,7 +129,7 @@ export const EditTaskBarInfo: React.FC<TProps> = ({
 
                 <ItemInfo>
                     <Property>Срок</Property>
-                    <PropValue>{getDate(resolutionDatePlan)}</PropValue>
+                    {resolutionDatePlan && <PropValue>{getDate(resolutionDatePlan)}</PropValue>}
                 </ItemInfo>
 
                 <ItemInfo>
