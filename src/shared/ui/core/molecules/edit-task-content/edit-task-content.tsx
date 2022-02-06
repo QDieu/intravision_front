@@ -41,9 +41,10 @@ const DescriptionContent = styled.div`
 
 type TProps = {
     task: ITask;
+    addComment: (value: string) => void;
 };
 
-export const EditTaskContent: React.FC<TProps> = ({ task }) => {
+export const EditTaskContent: React.FC<TProps> = ({ task, addComment }) => {
     const htmlRef = React.useRef<HTMLDivElement>(null);
 
     React.useLayoutEffect(() => {
@@ -57,7 +58,7 @@ export const EditTaskContent: React.FC<TProps> = ({ task }) => {
                     <DescriptionTitle>Описание</DescriptionTitle>
                     <DescriptionContent ref={htmlRef}></DescriptionContent>
                 </Description>
-                <EditTaskComment comment={task.comment} />
+                <EditTaskComment comment={task.comment} addComment={addComment} />
             </Main>
             <EditTaskBarInfo
                 initiatorName={task.initiatorName}

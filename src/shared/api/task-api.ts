@@ -13,8 +13,16 @@ export const TaskAPI = {
             .catch((err) => console.error(err));
     },
     createTask: (id: string, task: ITask) => {
-        return instance.post(`api/${id}/Tasks`, {
-            body: {},
-        });
+        return instance
+            .post(`api/${id}/Tasks`, {
+                task,
+            })
+            .then((response) => response);
+    },
+    updateTask: (id: string, task: ITask) => {
+        return instance
+            .put(`api/${id}/Tasks`, task)
+            .then((response) => response)
+            .catch((error) => error);
     },
 };

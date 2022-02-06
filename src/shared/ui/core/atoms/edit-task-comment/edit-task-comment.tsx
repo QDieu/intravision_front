@@ -101,13 +101,14 @@ const CommentContent = styled.div`
 
 type TProps = {
     comment?: string;
+    addComment: (value: string) => void;
 };
 
-export const EditTaskComment: React.FC<TProps> = ({ comment }) => {
+export const EditTaskComment: React.FC<TProps> = ({ comment, addComment }) => {
     const { register, handleSubmit } = useForm<{ comment: string }>();
 
     const onSubmit = (data: { comment: string }) => {
-        console.log(data);
+        addComment(data.comment);
     };
 
     return (

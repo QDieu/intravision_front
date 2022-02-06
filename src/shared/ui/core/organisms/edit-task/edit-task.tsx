@@ -19,13 +19,14 @@ const Wrapper = styled.div`
 type TProps = {
     task: ITask;
     onCloseEditForm: () => void;
+    addComment: (value: string) => void;
 };
 
-export const EditTask: React.FC<TProps> = ({ task, onCloseEditForm }) => {
+export const EditTask: React.FC<TProps> = ({ task, onCloseEditForm, addComment }) => {
     return (
         <Wrapper>
             <EditTaskHeader id={task.id} taskName={task.name} onCloseEditForm={onCloseEditForm} />
-            <EditTaskContent task={task} />
+            <EditTaskContent task={task} addComment={addComment} />
         </Wrapper>
     );
 };

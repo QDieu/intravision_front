@@ -15,6 +15,15 @@ export const taskReducer = (state = initialState, action: TActionTasksReducer): 
             return { ...state, tasks: [...action.payload] };
         case 'ADD_TASK':
             return { ...state, tasks: [...state.tasks, action.payload] };
+        case 'UPDATE_TASK': {
+            const index = state.tasks.findIndex((elem) => {
+                if (elem.id === action.payload.id) return true;
+                return false;
+            });
+            let tempTasks = [...state.tasks];
+            tempTasks[index] = action.payload;
+            return { ...state, tasks: [...tempTasks] };
+        }
         default:
             return state;
     }
@@ -25,6 +34,7 @@ type TActionTasksReducer = ActionTypesCreator<typeof actionTasks>;
 export const actionTasks = {
     setTasks: (tasks: Array<ITask>) => ({ type: 'SET_TASK', payload: tasks } as const),
     addTask: (task: ITask) => ({ type: 'ADD_TASK', payload: task } as const),
+    updateTask: (task: ITask) => ({ type: 'UPDATE_TASK', payload: task } as const),
 };
 
 type TThunkTasksReducer = ThunkTypeCreator<TActionTasksReducer>;
@@ -40,22 +50,24 @@ export const fetchTasks = (id: string): TThunkTasksReducer => {
 export const createTask = (
     name: string,
     description: string,
-    callbackNavigate: (task: ITask) => void,
+    callbackNavigate: (index: number) => void,
 ): TThunkTasksReducer => {
     return async (dispatch, getState) => {
         const id = getState().app.Tenatguid;
+
+        //TODO : вынести создание
         let task: ITask = {
             name: name,
             description: description,
             comment: '',
             price: 0,
             taskTypeId: 0,
-            statusId: 0,
-            priorityId: 0,
+            statusId: getState().statuses.statuses[3].id,
+            priorityId: getState().priorities.priorities[1].id,
             serviceId: 0,
             resolutionDatePlan: '2022-02-06T13:48:48.637Z',
             initiatorId: 0,
-            executorId: 0,
+            executorId: getState().users.users[0].id,
             executorGroupId: 0,
         };
 
@@ -63,7 +75,18 @@ export const createTask = (
         if (response.status === 200) {
             task.id = response.data;
             dispatch(actionTasks.addTask(task));
-            callbackNavigate(task);
+            callbackNavigate(getState().task.tasks.length - 1);
+        }
+    };
+};
+
+export const addCommentTask = (task: ITask): TThunkTasksReducer => {
+    return async (dispatch, getState) => {
+        const id = getState().app.Tenatguid;
+        delete task.tags;
+        let response = await TaskAPI.updateTask(id, task);
+        if (response.status === 200) {
+            dispatch(actionTasks.updateTask(task));
         }
     };
 };

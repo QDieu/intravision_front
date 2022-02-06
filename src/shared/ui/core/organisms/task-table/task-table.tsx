@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { TPriority } from '../../../../types/Priority';
 import { TStatus } from '../../../../types/Status';
 import { ITask } from '../../../../types/Task';
+import { TUser } from '../../../../types/User';
 import { Button } from '../../atoms';
 import { TaskTableHead, TaskTableRow } from '../../molecules';
 
@@ -55,7 +56,8 @@ type TProps = {
     status: Array<TStatus>;
     priority: Array<TPriority>;
     onTaskCreateForm: () => void;
-    onEditTask: (task: ITask) => void;
+    onEditTask: (index: number) => void;
+    users: Array<TUser>;
 };
 
 export const TaskTable: React.FC<TProps> = ({
@@ -64,6 +66,7 @@ export const TaskTable: React.FC<TProps> = ({
     priority,
     onTaskCreateForm,
     onEditTask,
+    users,
 }) => {
     return (
         <Wrapper>
@@ -72,16 +75,20 @@ export const TaskTable: React.FC<TProps> = ({
             </ButtonWrapper>
             <Table>
                 <TaskTableHead />
-                {tasks.map((item) => (
+                {tasks.map((item, index) => (
                     <TaskTableRow
                         task={item}
                         status={status.find((statusItem) => {
-                            return statusItem.name === item.statusName;
+                            return statusItem.id === item.statusId;
                         })}
                         priority={priority.find((priorityItem) => {
-                            return priorityItem.name === item.priorityName;
+                            return priorityItem.id === item.priorityId;
+                        })}
+                        executor={users.find((userItem) => {
+                            return userItem.id === item.executorId;
                         })}
                         onEditTask={onEditTask}
+                        index={index}
                     />
                 ))}
             </Table>

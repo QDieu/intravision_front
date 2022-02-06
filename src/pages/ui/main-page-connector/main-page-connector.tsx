@@ -5,17 +5,19 @@ import { fetchPriorities } from '../../../features/redux/priorities-reducer';
 import { fetchStatuses } from '../../../features/redux/status-reducer';
 import { TAppState } from '../../../features/redux/store';
 import { fetchTasks } from '../../../features/redux/task-reducer';
+import { fetchUser } from '../../../features/redux/users-reducer';
 import { ITask } from '../../../shared/types/Task';
 import { MainPage } from '../../../shared/ui/core/pages';
 
 export const MainPageConnector: React.FC<{}> = () => {
     const dispatch = useDispatch();
-    const { tasks, priorities, statuses, tenatId } = useSelector((state: TAppState) => {
+    const { tasks, priorities, statuses, tenatId, users } = useSelector((state: TAppState) => {
         return {
             tasks: state.task.tasks,
             priorities: state.priorities.priorities,
             statuses: state.statuses.statuses,
             tenatId: state.app.Tenatguid,
+            users: state.users.users,
         };
     });
 
@@ -25,14 +27,19 @@ export const MainPageConnector: React.FC<{}> = () => {
         dispatch(fetchTasks(tenatId));
         dispatch(fetchPriorities(tenatId));
         dispatch(fetchStatuses(tenatId));
+        dispatch(fetchUser(tenatId));
     }, [tenatId]);
 
     const onTaskCreateForm = () => {
         navigate('/new');
     };
 
-    const onEditTask = (task: ITask) => {
-        navigate('/edit', { state: task });
+    const onEditTask = (index: number) => {
+        navigate('/edit', {
+            state: {
+                index: index,
+            },
+        });
     };
 
     return tasks ? (
@@ -43,6 +50,7 @@ export const MainPageConnector: React.FC<{}> = () => {
                 tasks={tasks}
                 onTaskCreateForm={onTaskCreateForm}
                 onEditTask={onEditTask}
+                users={users}
             />
             <Outlet />
         </>

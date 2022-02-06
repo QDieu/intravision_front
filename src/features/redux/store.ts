@@ -4,12 +4,14 @@ import { appReducer } from './app-reducer';
 import { prioritesReducer } from './priorities-reducer';
 import { statusesReducer } from './status-reducer';
 import { taskReducer } from './task-reducer';
+import { usersReducer } from './users-reducer';
 
 const RootReducer = combineReducers({
     task: taskReducer,
     app: appReducer,
     priorities: prioritesReducer,
     statuses: statusesReducer,
+    users: usersReducer,
 });
 
 type TRootReducer = typeof RootReducer;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { TPriority } from '../../../../types/Priority';
 import { TStatus } from '../../../../types/Status';
 import { ITask } from '../../../../types/Task';
+import { TUser } from '../../../../types/User';
 import { PriorityLine, StatusButton } from '../../atoms';
 
 const Wrapper = styled.tr`
@@ -29,12 +30,21 @@ type TProps = {
     priority?: TPriority;
     task: ITask;
     status?: TStatus;
-    onEditTask: (task: ITask) => void;
+    onEditTask: (index: number) => void;
+    index: number;
+    executor?: TUser;
 };
 
-export const TaskTableRow: React.FC<TProps> = ({ priority, status, task, onEditTask }) => {
+export const TaskTableRow: React.FC<TProps> = ({
+    priority,
+    status,
+    task,
+    onEditTask,
+    index,
+    executor,
+}) => {
     const onClickHandler = () => {
-        onEditTask(task);
+        onEditTask(index);
     };
 
     return (
@@ -51,9 +61,7 @@ export const TaskTableRow: React.FC<TProps> = ({ priority, status, task, onEditT
             <td>
                 <StatusButton status={status} />
             </td>
-            <td>
-                <TextWrapper>{task.executorName}</TextWrapper>
-            </td>
+            <td>{executor && <TextWrapper>{executor.name}</TextWrapper>}</td>
         </Wrapper>
     );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { TPriority } from '../../../../types/Priority';
 import { TStatus } from '../../../../types/Status';
 import { ITask } from '../../../../types/Task';
+import { TUser } from '../../../../types/User';
 import { Header } from '../../molecules';
 import { TaskTable } from '../../organisms';
 import { MainTemplate } from '../../templates';
@@ -11,7 +12,8 @@ type TProps = {
     priority: Array<TPriority>;
     status: Array<TStatus>;
     onTaskCreateForm: () => void;
-    onEditTask: (task: ITask) => void;
+    onEditTask: (index: number) => void;
+    users: Array<TUser>;
 };
 
 export const MainPage: React.FC<TProps> = ({
@@ -20,6 +22,7 @@ export const MainPage: React.FC<TProps> = ({
     status,
     onTaskCreateForm,
     onEditTask,
+    users,
 }) => {
     return (
         <>
@@ -31,6 +34,7 @@ export const MainPage: React.FC<TProps> = ({
                         status={status}
                         onTaskCreateForm={onTaskCreateForm}
                         onEditTask={onEditTask}
+                        users={users}
                     />
                 }
                 header={<Header />}

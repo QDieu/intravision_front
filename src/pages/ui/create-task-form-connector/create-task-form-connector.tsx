@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { createTask } from '../../../features/redux/task-reducer';
-import { ITask } from '../../../shared/types/Task';
 import { CreateTaskForm } from '../../../shared/ui/core/molecules';
 
 export const CreateTaskFormConnector: React.FC<{}> = () => {
@@ -13,8 +12,8 @@ export const CreateTaskFormConnector: React.FC<{}> = () => {
         navigate('/');
     };
 
-    const callbackNavigate = (task: ITask) => {
-        navigate('/edit', { state: task });
+    const callbackNavigate = (index: number) => {
+        navigate('/edit', { state: { index: index } });
     };
 
     const onCreate = (name: string, description: string) => {
