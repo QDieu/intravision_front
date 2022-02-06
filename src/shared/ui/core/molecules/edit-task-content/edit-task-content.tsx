@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TPriority } from '../../../../types/Priority';
+import { TStatus } from '../../../../types/Status';
 import { ITask } from '../../../../types/Task';
+import { TUser } from '../../../../types/User';
 import { EditTaskBarInfo, EditTaskComment } from '../../atoms';
 
 const Wrapper = styled.div`
@@ -41,10 +44,19 @@ const DescriptionContent = styled.div`
 
 type TProps = {
     task: ITask;
+    priorities: Array<TPriority>;
+    statuses: Array<TStatus>;
+    users: Array<TUser>;
     addComment: (value: string) => void;
 };
 
-export const EditTaskContent: React.FC<TProps> = ({ task, addComment }) => {
+export const EditTaskContent: React.FC<TProps> = ({
+    task,
+    addComment,
+    priorities,
+    statuses,
+    users,
+}) => {
     const htmlRef = React.useRef<HTMLDivElement>(null);
 
     React.useLayoutEffect(() => {
@@ -61,13 +73,20 @@ export const EditTaskContent: React.FC<TProps> = ({ task, addComment }) => {
                 <EditTaskComment comment={task.comment} addComment={addComment} />
             </Main>
             <EditTaskBarInfo
-                initiatorName={task.initiatorName}
-                statusColor={task.statusRgb}
-                statusName={task.statusName}
-                executorName={task.executorName}
-                priorityName={task.priorityName}
+                initiator={users.find((userItem) => {
+                    return userItem.id === task.initiatorId;
+                })}
                 resolutionDatePlan={task.resolutionDatePlan}
                 tags={task.tags}
+                status={statuses.find((statusItem) => {
+                    return statusItem.id === task.statusId;
+                })}
+                priority={priorities.find((priorityItem) => {
+                    return priorityItem.id === task.priorityId;
+                })}
+                executor={users.find((userItem) => {
+                    return userItem.id === task.executorId;
+                })}
             />
         </Wrapper>
     );

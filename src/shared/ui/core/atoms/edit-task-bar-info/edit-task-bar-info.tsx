@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getDate } from '../../../../lib';
+import { TPriority } from '../../../../types/Priority';
+import { TStatus } from '../../../../types/Status';
+import { TUser } from '../../../../types/User';
 
 const Wrapper = styled.div`
     width: 10%;
@@ -82,49 +85,48 @@ const Tag = styled.div`
 `;
 
 type TProps = {
-    statusName?: string;
-    initiatorName?: string;
-    executorName?: string;
-    priorityName?: string;
+    status?: TStatus;
+    initiator?: TUser;
+    executor?: TUser;
+    priority?: TPriority;
     resolutionDatePlan?: string;
     tags?: Array<{ id: number; name: string }>;
     statusColor?: string;
 };
 
 export const EditTaskBarInfo: React.FC<TProps> = ({
-    statusName,
-    executorName,
-    initiatorName,
-    priorityName,
+    status,
+    executor,
+    initiator,
+    priority,
     resolutionDatePlan,
     tags,
-    statusColor,
 }) => {
     return (
         <Wrapper>
             <Status>
-                <StatusColor statusColor={statusColor} />
-                <StatusText>{statusName}</StatusText>
+                <StatusColor statusColor={status?.rgb} />
+                <StatusText>{status?.name}</StatusText>
             </Status>
             <MainInfo>
                 <ItemInfo>
                     <Property>Заявитель</Property>
-                    <PropValue>{initiatorName}</PropValue>
+                    <PropValue>{initiator?.name}</PropValue>
                 </ItemInfo>
 
                 <ItemInfo>
                     <Property>Создана</Property>
-                    <PropValue>{initiatorName}</PropValue>
+                    <PropValue>{initiator?.name}</PropValue>
                 </ItemInfo>
 
                 <ItemInfo>
                     <Property>Исполнитель</Property>
-                    <PropValue>{executorName}</PropValue>
+                    <PropValue>{executor?.name}</PropValue>
                 </ItemInfo>
 
                 <ItemInfo>
                     <Property>Приоритет</Property>
-                    <PropValue>{priorityName}</PropValue>
+                    <PropValue>{priority?.name}</PropValue>
                 </ItemInfo>
 
                 <ItemInfo>

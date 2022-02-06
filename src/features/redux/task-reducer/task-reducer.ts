@@ -66,7 +66,7 @@ export const createTask = (
             priorityId: getState().priorities.priorities[1].id,
             serviceId: 0,
             resolutionDatePlan: '2022-02-06T13:48:48.637Z',
-            initiatorId: 0,
+            initiatorId: getState().users.users[1].id,
             executorId: getState().users.users[0].id,
             executorGroupId: 0,
         };

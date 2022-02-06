@@ -17,7 +17,12 @@ export const EditTaskConnector: React.FC<{}> = () => {
 
     const state = location.state as MyState;
     const index = state.index;
-    const task = useSelector((state: TAppState) => state.task.tasks);
+    const { task, users, statuses, priorities } = useSelector((state: TAppState) => ({
+        task: state.task.tasks,
+        users: state.users.users,
+        statuses: state.statuses.statuses,
+        priorities: state.priorities.priorities,
+    }));
 
     const onCloseEditForm = () => {
         navigate('/');
@@ -29,6 +34,13 @@ export const EditTaskConnector: React.FC<{}> = () => {
     };
 
     return (
-        <EditTask task={task[index]} onCloseEditForm={onCloseEditForm} addComment={addComment} />
+        <EditTask
+            task={task[index]}
+            onCloseEditForm={onCloseEditForm}
+            addComment={addComment}
+            users={users}
+            statuses={statuses}
+            priorities={priorities}
+        />
     );
 };

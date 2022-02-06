@@ -11,9 +11,9 @@ type TProps = {
     tasks: Array<ITask>;
     priority: Array<TPriority>;
     status: Array<TStatus>;
+    users: Array<TUser>;
     onTaskCreateForm: () => void;
     onEditTask: (index: number) => void;
-    users: Array<TUser>;
 };
 
 export const MainPage: React.FC<TProps> = ({
