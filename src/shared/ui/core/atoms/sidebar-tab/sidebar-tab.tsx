@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -9,6 +10,13 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.6;
+    transition: 0.3s;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -26,8 +34,15 @@ type TProps = {
 };
 
 export const SidebarTab: React.FC<TProps> = ({ tab }) => {
+  const navigate = useNavigate();
+
+  const onClickHandler = () => {
+    if (tab[1] === "Заявки") navigate("/");
+    else navigate("/stub", { state: tab[1] });
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onClick={onClickHandler}>
       <IconWrapper>{tab[0]}</IconWrapper>
       <TextWrapper>{tab[1]}</TextWrapper>
     </Wrapper>

@@ -6,6 +6,7 @@ import { Sidebar } from "../../../shared/ui/core/molecules";
 import { CreateTaskFormConnector } from "../create-task-form-connector";
 import { EditTaskConnector } from "../edit-task-connector";
 import { MainPageConnector } from "../main-page-connector";
+import { StubConnector } from "../stub-connector";
 
 export const AppNavigation = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export const AppNavigation = () => {
           <Route path="new" element={<CreateTaskFormConnector />} />
           <Route path="edit" element={<EditTaskConnector />} />
         </Route>
+        <Route path="/stub" element={<StubConnector />} />
       </Routes>
     </div>
   );

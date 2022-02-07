@@ -5,6 +5,7 @@ const Wrapper = styled.div`
   position: absolute;
   padding-left: 95px;
   width: 100%;
+  box-sizing: border-box;
 `;
 
 const Content = styled.div`
