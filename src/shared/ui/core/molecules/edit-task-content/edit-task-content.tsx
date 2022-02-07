@@ -48,6 +48,8 @@ type TProps = {
   statuses: Array<TStatus>;
   users: Array<TUser>;
   addComment: (value: string) => void;
+  changeStatus: (statusId: number) => void;
+  changeExecutor: (executorId: number) => void;
 };
 
 export const EditTaskContent: React.FC<TProps> = ({
@@ -56,6 +58,8 @@ export const EditTaskContent: React.FC<TProps> = ({
   priorities,
   statuses,
   users,
+  changeExecutor,
+  changeStatus,
 }) => {
   const htmlRef = React.useRef<HTMLDivElement>(null);
 
@@ -84,9 +88,10 @@ export const EditTaskContent: React.FC<TProps> = ({
         priority={priorities.find((priorityItem) => {
           return priorityItem.id === task.priorityId;
         })}
-        executor={users.find((userItem) => {
-          return userItem.id === task.executorId;
-        })}
+        users={users}
+        executorId={task.executorId}
+        changeStatus={changeStatus}
+        changeExecutor={changeExecutor}
       />
     </Wrapper>
   );

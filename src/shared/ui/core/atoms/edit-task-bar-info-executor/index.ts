@@ -1,0 +1,1 @@
+export {EditTaskBarInfoExecutor} from './edit-task-bar-info-executor'

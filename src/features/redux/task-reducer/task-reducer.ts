@@ -80,7 +80,7 @@ export const createTask = (
     };
 };
 
-export const addCommentTask = (task: ITask): TThunkTasksReducer => {
+export const updateTask = (task: ITask): TThunkTasksReducer => {
     return async (dispatch, getState) => {
         const id = getState().app.Tenatguid;
         delete task.tags;

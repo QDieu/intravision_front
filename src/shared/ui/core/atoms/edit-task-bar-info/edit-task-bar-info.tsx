@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { EditTaskBarInfoStatus } from "..";
+import { EditTaskBarInfoExecutor, EditTaskBarInfoStatus } from "..";
 import { getDate } from "../../../../lib";
 import { TPriority } from "../../../../types/Priority";
 import { TStatus } from "../../../../types/Status";
@@ -23,7 +23,7 @@ const MainInfo = styled.div`
 `;
 
 const ItemInfo = styled.div`
-  margin-bottom: 24px;
+  margin-top: 24px;
 
   &:nth-child(1) {
     margin-bottom: 42px;
@@ -66,26 +66,36 @@ const Tag = styled.div`
 type TProps = {
   statuses?: Array<TStatus>;
   initiator?: TUser;
-  executor?: TUser;
+  users?: Array<TUser>;
   priority?: TPriority;
   resolutionDatePlan?: string;
   tags?: Array<{ id: number; name: string }>;
   statusColor?: string;
   statusId?: number;
+  executorId?: number;
+  changeStatus: (statusId: number) => void;
+  changeExecutor: (executorId: number) => void;
 };
 
 export const EditTaskBarInfo: React.FC<TProps> = ({
   statuses,
-  executor,
+  users,
   initiator,
   priority,
   resolutionDatePlan,
   tags,
   statusId,
+  executorId,
+  changeExecutor,
+  changeStatus,
 }) => {
   return (
     <Wrapper>
-      <EditTaskBarInfoStatus statusId={statusId} statuses={statuses} />
+      <EditTaskBarInfoStatus
+        statusId={statusId}
+        statuses={statuses}
+        changeStatus={changeStatus}
+      />
       <MainInfo>
         <ItemInfo>
           <Property>Заявитель</Property>
@@ -97,10 +107,11 @@ export const EditTaskBarInfo: React.FC<TProps> = ({
           <PropValue>{initiator?.name}</PropValue>
         </ItemInfo>
 
-        <ItemInfo>
-          <Property>Исполнитель</Property>
-          <PropValue>{executor?.name}</PropValue>
-        </ItemInfo>
+        <EditTaskBarInfoExecutor
+          users={users}
+          executorId={executorId}
+          changeExecutor={changeExecutor}
+        />
 
         <ItemInfo>
           <Property>Приоритет</Property>

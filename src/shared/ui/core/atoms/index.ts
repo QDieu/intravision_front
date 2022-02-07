@@ -7,3 +7,4 @@ export { EditTaskBarInfo } from './edit-task-bar-info';
 export { EditTaskHeader } from './edit-task-header';
 export { EditTaskComment } from './edit-task-comment';
 export {EditTaskBarInfoStatus} from './edit-task-bar-info-status'
+export {EditTaskBarInfoExecutor} from './edit-task-bar-info-executor'

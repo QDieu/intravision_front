@@ -68,11 +68,13 @@ const StatusPopup = styled.div`
 type TProps = {
   statusId?: number;
   statuses?: Array<TStatus>;
+  changeStatus: (statusId: number) => void;
 };
 
 export const EditTaskBarInfoStatus: React.FC<TProps> = ({
   statusId,
   statuses,
+  changeStatus,
 }) => {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const [activeStatus, setActiveStatus] = React.useState(statusId);
@@ -87,6 +89,7 @@ export const EditTaskBarInfoStatus: React.FC<TProps> = ({
 
   const onClickHandlerStatus = (id: number) => {
     setActiveStatus(id);
+    changeStatus(id);
     setVisiblePopup(false);
   };
 
