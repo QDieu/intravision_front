@@ -1,10 +1,10 @@
-import React from 'react';
 import { TaskAPI } from '../../../shared/api';
 import { ITask } from '../../../shared/types/Task';
 import { ActionTypesCreator, ThunkTypeCreator } from '../store';
 
 let initialState = {
     tasks: [] as Array<ITask>,
+    currentTask : {} as ITask
 };
 
 type TInitialState = typeof initialState;
@@ -24,6 +24,9 @@ export const taskReducer = (state = initialState, action: TActionTasksReducer): 
             tempTasks[index] = action.payload;
             return { ...state, tasks: [...tempTasks] };
         }
+        case 'SET_CURRENT_TASK' : {
+            return {...state, currentTask : action.payload}
+        }
         default:
             return state;
     }
@@ -35,6 +38,7 @@ export const actionTasks = {
     setTasks: (tasks: Array<ITask>) => ({ type: 'SET_TASK', payload: tasks } as const),
     addTask: (task: ITask) => ({ type: 'ADD_TASK', payload: task } as const),
     updateTask: (task: ITask) => ({ type: 'UPDATE_TASK', payload: task } as const),
+    setCurrentTask : (task : ITask) => ({type : 'SET_CURRENT_TASK', payload : task} as const)
 };
 
 type TThunkTasksReducer = ThunkTypeCreator<TActionTasksReducer>;
@@ -88,5 +92,13 @@ export const updateTask = (task: ITask): TThunkTasksReducer => {
         if (response.status === 200) {
             dispatch(actionTasks.updateTask(task));
         }
+    };
+};
+
+export const fetchCurrentTask = (id: string, taskId : string | undefined): TThunkTasksReducer => {
+    return async (dispatch) => {
+        if (!id || !taskId) return;
+        let data = await TaskAPI.getTaskId(id, +taskId);
+        dispatch(actionTasks.setCurrentTask(data));
     };
 };

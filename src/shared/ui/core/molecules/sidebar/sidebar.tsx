@@ -36,8 +36,8 @@ export const Sidebar: React.FC<TProps> = ({ tabs }) => {
   return (
     <Wrapper>
       {tabs
-        ? tabs.map((item) => <SidebarTab tab={item} />)
-        : mockTabs.map((item) => <SidebarTab tab={item} />)}
+        ? tabs.map((item, index) => <SidebarTab tab={item} key={index} />)
+        : mockTabs.map((item, index) => <SidebarTab tab={item} key={index} />)}
     </Wrapper>
   );
 };

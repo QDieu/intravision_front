@@ -25,4 +25,9 @@ export const TaskAPI = {
             .then((response) => response)
             .catch((error) => error);
     },
+    getTaskId : (id : string, idTask : number) => {
+        return instance.get(`api/${id}/Tasks/${idTask}`)
+        .then(response => response.data)
+        .catch((err) => console.error(err))
+    }
 };

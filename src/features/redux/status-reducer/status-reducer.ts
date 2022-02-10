@@ -1,4 +1,3 @@
-import React from 'react';
 import { StatusesAPI } from '../../../shared/api';
 import { TStatus } from '../../../shared/types/Status';
 import { ActionTypesCreator, ThunkTypeCreator } from '../store';

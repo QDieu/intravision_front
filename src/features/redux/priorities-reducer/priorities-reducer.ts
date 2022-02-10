@@ -1,4 +1,3 @@
-import React from 'react';
 import { PrioritiesAPI } from '../../../shared/api';
 import { TPriority } from '../../../shared/types/Priority';
 import { ActionTypesCreator, ThunkTypeCreator } from '../store';

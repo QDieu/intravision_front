@@ -84,10 +84,10 @@ export const EditTaskBarInfoExecutor: React.FC<TProps> = ({
   return (
     <>
       {users &&
-        users.map((user) => {
+        users.map((user, index) => {
           if (user.id === activeExecutor) {
             return (
-              <ItemInfo onClick={onClickHandlerPopup}>
+              <ItemInfo onClick={onClickHandlerPopup} key={index}>
                 <Property>Исполнитель</Property>
                 <PropValue>{user.name}</PropValue>
               </ItemInfo>
@@ -100,8 +100,8 @@ export const EditTaskBarInfoExecutor: React.FC<TProps> = ({
         <StatusPopup>
           <ul>
             {users &&
-              users.map((user) => (
-                <li onClick={() => onClickHandlerStatus(user.id)}>
+              users.map((user,index) => (
+                <li onClick={() => onClickHandlerStatus(user.id)} key={index}>
                   <PropValue>{user.name}</PropValue>
                 </li>
               ))}

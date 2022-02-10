@@ -1,22 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
-import { HeaderSearchInput } from '../../atoms';
+import React from "react";
+import styled from "styled-components";
+import { HeaderSearchInput } from "../../atoms";
 
 const Wrapper = styled.div`
-    width: 100%;
-    height: 65px;
-    background-color: #d1e0ed;
+  width: 100%;
+  height: 65px;
+  background-color: #d1e0ed;
 
-    box-sizing: border-box;
-    padding: 16px 0 0 16px;
+  box-sizing: border-box;
+  padding: 16px 0 0 16px;
 `;
 
 type TProps = {};
 
-export const Header: React.FC<TProps> = ({}) => {
-    return (
-        <Wrapper>
-            <HeaderSearchInput />
-        </Wrapper>
-    );
+export const Header: React.FC<TProps> = () => {
+  return (
+    <Wrapper>
+      <HeaderSearchInput />
+    </Wrapper>
+  );
 };

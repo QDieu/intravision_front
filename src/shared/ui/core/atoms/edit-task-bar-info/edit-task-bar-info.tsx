@@ -130,8 +130,8 @@ export const EditTaskBarInfo: React.FC<TProps> = ({
             <>
               <Property>Теги</Property>
               <PropValue>
-                {tags.map((item) => (
-                  <Tag>{item.name}</Tag>
+                {tags.map((item, index) => (
+                  <Tag key={item.name + index}>{item.name}</Tag>
                 ))}
               </PropValue>
             </>

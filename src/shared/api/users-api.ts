@@ -1,7 +1,7 @@
 import { instance } from './api';
 
 export const UsersAPI = {
-    getPriorities: (id: string) => {
+    getUsers: (id: string) => {
         return instance
             .get(`api/${id}/Users`)
             .then((response) => response.data)

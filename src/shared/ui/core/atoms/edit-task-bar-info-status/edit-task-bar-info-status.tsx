@@ -96,10 +96,14 @@ export const EditTaskBarInfoStatus: React.FC<TProps> = ({
   return (
     <>
       {statuses &&
-        statuses.map((item) => {
+        statuses.map((item, index) => {
           if (item.id === activeStatus) {
             return (
-              <Status statusColor={item.rgb} onClick={onClickHandlerPopup}>
+              <Status
+                statusColor={item.rgb}
+                onClick={onClickHandlerPopup}
+                key={index}
+              >
                 <StatusColor statusColor={item.rgb} />
                 <StatusText>{item.name}</StatusText>
               </Status>
@@ -112,8 +116,8 @@ export const EditTaskBarInfoStatus: React.FC<TProps> = ({
         <StatusPopup>
           <ul>
             {statuses &&
-              statuses.map((item) => (
-                <li onClick={() => onClickHandlerStatus(item.id)}>
+              statuses.map((item, index) => (
+                <li onClick={() => onClickHandlerStatus(item.id)} key={index}>
                   <StatusColor statusColor={item.rgb} />
                   <StatusText>{item.name}</StatusText>
                 </li>

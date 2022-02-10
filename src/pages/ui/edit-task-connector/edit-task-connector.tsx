@@ -1,63 +1,67 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { TAppState } from "../../../features/redux/store";
-import { updateTask } from "../../../features/redux/task-reducer";
+import {
+  fetchCurrentTask,
+  updateTask,
+} from "../../../features/redux/task-reducer";
 import { EditTask } from "./../../../shared/ui/core/organisms";
 
-type MyState = {
-  index: number;
-};
-
 export const EditTaskConnector: React.FC<{}> = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const state = location.state as MyState;
-  const index = state.index;
-  const { task, users, statuses, priorities } = useSelector(
+  const taskId = useParams().taskId;
+
+  const { currentTask, users, statuses, priorities, tenatid } = useSelector(
     (state: TAppState) => ({
-      task: state.task.tasks,
+      currentTask: state.task.currentTask,
       users: state.users.users,
       statuses: state.statuses.statuses,
       priorities: state.priorities.priorities,
+      tenatid: state.app.Tenatguid,
     })
   );
+
+  React.useEffect(() => {
+    dispatch(fetchCurrentTask(tenatid, taskId));
+  }, [tenatid, taskId]);
 
   const onCloseEditForm = () => {
     navigate("/");
   };
 
   const addComment = (comment: string) => {
-    task[index].comment = comment;
-    dispatch(updateTask(task[index]));
+    currentTask.comment = comment;
+    dispatch(updateTask(currentTask));
   };
 
   const changeStatus = (statusId: number) => {
     statuses.map((item) => {
       if (item.id === statusId) {
-        task[index].statusId = item.id;
-        task[index].statusName = item.name;
-        task[index].statusRgb = item.rgb;
+        currentTask.statusId = item.id;
+        currentTask.statusName = item.name;
+        currentTask.statusRgb = item.rgb;
       }
     });
-    dispatch(updateTask(task[index]));
+    dispatch(updateTask(currentTask));
   };
 
   const changeExecutor = (executorId: number) => {
     users.map((item) => {
       if (item.id === executorId) {
-        task[index].executorId = item.id;
-        task[index].executorName = item.name;
+        currentTask.executorId = item.id;
+        currentTask.executorName = item.name;
       }
     });
-    dispatch(updateTask(task[index]));
+    dispatch(updateTask(currentTask));
   };
 
   return (
     <EditTask
-      task={task[index]}
+      task={currentTask}
       onCloseEditForm={onCloseEditForm}
       addComment={addComment}
       users={users}
